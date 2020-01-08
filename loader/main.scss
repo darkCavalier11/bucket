@@ -1,0 +1,131 @@
+@mixin mediaQuery($screen-size) {
+    @if $screen-size == phone{
+        @media (max-width : 600px) {
+            @content
+        }
+    }
+    @if $screen-size == tablet-portrait{
+        @media (max-width : 900px) {
+            @content
+        }
+    }
+    @if $screen-size == tablet-landscape{
+        @media (max-width : 1200px) {
+            @content
+        }
+    }
+}
+
+@mixin ring($diameter:50px,$track:rgb(214, 214, 214), $thumb: rgb(6, 178, 252),$duration:1s, $timing-function: linear ,$delay: 0) {
+        height: $diameter;
+        width: $diameter;
+        border-radius: 50%;
+        border: 7px solid $track;
+        border-top: 7px solid $thumb;
+        animation-name: rotate;
+        animation-duration: $duration;
+        animation-timing-function: $timing-function;
+        animation-iteration-count: infinite;
+        animation-delay: $delay;
+    }  
+    
+    @keyframes rotate{
+        0%{
+            transform: rotateZ(0);
+        }
+        100%{
+            transform: rotateZ(360deg);
+        }
+    }
+    .bucket__ring{
+        @include ring()
+    } 
+    
+    
+    
+    
+    
+// ---------------------------------------------------------------------------------------------
+
+
+
+
+@mixin bubble($diameter:50px,$track:rgb(214, 214, 214), $primary: rgb(6, 178, 252),$duration:1s, $timing-function: linear, $delay:0) {
+    height: $diameter;
+    width: $diameter;
+    border-radius: 50%;
+    background-color: $primary;
+    animation-name: bubbling;
+    animation-duration: $duration;
+    animation-timing-function: $timing-function;
+    animation-iteration-count: infinite;
+    animation-delay: $delay;
+
+
+}
+@keyframes bubbling{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.5);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+
+.bucket__bubble{
+    @include bubble()
+}
+
+// -------------------------------------------------------------------------------------------------
+
+@mixin bar-main($width: 150px, $height:10px, $primary: rgb(214,214,214), $border-radius:10px) {
+    width: $width;
+    height: $height;
+    background-color: $primary;
+    border-radius: $border-radius;
+}
+@mixin bar-after($primary: rgb(6, 178, 252),$duration:1s, $timing-function: linear, $delay:0) {
+    
+    background-color: $primary;
+    border-radius: 100px;
+    animation-name: linearMovement;
+    animation-duration: 1s;
+    animation-timing-function: $timing-function;
+    animation-iteration-count: infinite;
+    animation-delay: $delay;
+}
+@keyframes linearMovement{
+    0%{
+    }
+    50%{
+        transform: translateX(400%);
+    }
+    100%{
+        transform: translateX(-10%);
+    }
+}
+.bucket__bar{
+    @include bar-main()
+}
+.bucket__bar::after{
+    content: '';
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    @include bar-after();
+}
+
+
+
+
+
+
+
+
+
+
+
